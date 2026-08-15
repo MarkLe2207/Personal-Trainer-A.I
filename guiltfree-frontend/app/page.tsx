@@ -1,39 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import { AppProvider } from "../lib/app-context";
 import HealthBadge from "../components/HealthBadge";
 import SchedulerPanel from "../components/SchedulerPanel";
-import CoachPanel from "../components/CoachPanel";
-import RecipePanel from "../components/RecipePanel";
 import ExercisePanel from "../components/ExercisePanel";
-import ReceiptPanel from "../components/ReceiptPanel";
+import StoragePanel from "../components/StoragePanel";
+import NutritionPanel from "../components/NutritionPanel";
 
-type TabKey =
-  | "scheduler"
-  | "coach"
-  | "recipes"
-  | "exercises"
-  | "receipt";
+type TabKey = "scheduler" | "exercise" | "storage" | "nutrition";
 
 const TABS: { key: TabKey; label: string }[] = [
   { key: "scheduler", label: "Scheduler" },
-  { key: "coach", label: "AI Coach" },
-  { key: "recipes", label: "Recipes" },
-  { key: "exercises", label: "Exercises" },
-  { key: "receipt", label: "Receipt Scanner" },
+  { key: "exercise", label: "Exercise" },
+  { key: "storage", label: "Storage" },
+  { key: "nutrition", label: "AI Coach & Nutrition" },
 ];
 
-export default function Home() {
-  const [active, setActive] = useState<TabKey>("scheduler");
+function FlexiFitApp() {
+  const [active, setActive] = useState<TabKey>("exercise");
 
   return (
     <div className="app">
       <header className="app-header">
         <div>
-          <h1>Guilt-Free Trainer &amp; Pantry Companion</h1>
+          <h1>FlexiFit AI</h1>
           <p>
-            Adaptive scheduling, an AI coach, recipe/exercise search, and
-            receipt OCR — powered by the FastAPI backend.
+            Adaptive workout tables, pantry storage, and AI recipes &amp;
+            nutrition advice — built on your ingredients.
           </p>
         </div>
         <HealthBadge />
@@ -52,10 +46,17 @@ export default function Home() {
       </nav>
 
       {active === "scheduler" && <SchedulerPanel />}
-      {active === "coach" && <CoachPanel />}
-      {active === "recipes" && <RecipePanel />}
-      {active === "exercises" && <ExercisePanel />}
-      {active === "receipt" && <ReceiptPanel />}
+      {active === "exercise" && <ExercisePanel />}
+      {active === "storage" && <StoragePanel />}
+      {active === "nutrition" && <NutritionPanel />}
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <AppProvider>
+      <FlexiFitApp />
+    </AppProvider>
   );
 }

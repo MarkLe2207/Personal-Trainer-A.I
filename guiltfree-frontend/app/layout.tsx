@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Guilt-Free Trainer & Pantry Companion",
+  title: "FlexiFit AI",
   description:
-    "Frontend for the Guilt-Free Personal Trainer & AI Pantry Companion backend: adaptive scheduling, AI coach, recipe/exercise search, and receipt OCR.",
+    "FlexiFit AI: adaptive workout tables, pantry storage, and AI recipes & nutrition advice built on your ingredients.",
 };
 
 export default function RootLayout({
