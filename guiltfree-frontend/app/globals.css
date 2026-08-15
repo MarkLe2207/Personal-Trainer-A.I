@@ -555,7 +555,146 @@ body {
   font-size: 14px;
 }
 
+.chat-input {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fbfcfe;
+  color: var(--text);
+}
+
+.chat-input input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+
+.btn-small {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.btn-success {
+  background: var(--success);
+  color: #fff;
+}
+
+.btn-success:hover {
+  background: #128a3e;
+}
+
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.exercise-table th,
+.exercise-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.exercise-table thead th {
+  background: #f4f5fa;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.exercise-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cell-day {
+  font-weight: 600;
+}
+
+.cell-date {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cell-muscle {
+  font-weight: 600;
+}
+
+.cell-routine {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cell-duration {
+  white-space: nowrap;
+}
+
+.done-mark {
+  color: var(--success);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.storage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.scan-area {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.chip.removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 8px;
+}
+
+.chip-x {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.chip-x:hover {
+  color: var(--danger);
+}
+
 @media (max-width: 640px) {
+  .storage-grid {
+    grid-template-columns: 1fr;
+  }
+  .chat-input {
+    flex-direction: column;
+  }
+  .exercise-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
   .app-header {
     flex-direction: column;
   }
