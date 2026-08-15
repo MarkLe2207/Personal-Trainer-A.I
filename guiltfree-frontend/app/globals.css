@@ -328,6 +328,11 @@ body {
   color: var(--muted);
 }
 
+.badge.in_progress {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
 .chat {
   margin-top: 16px;
 }
@@ -422,6 +427,118 @@ body {
   margin-top: 14px;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.workout-table-wrap {
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.workout-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.workout-table th,
+.workout-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.workout-table thead th {
+  background: #f4f5fa;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.workout-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.workout-table tbody tr.done {
+  opacity: 0.65;
+}
+
+.workout-table input {
+  width: 100%;
+  min-width: 90px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #fbfcfe;
+  color: var(--text);
+}
+
+.workout-table input:disabled {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+
+.advice-card {
+  margin-top: 18px;
+  border: 1px solid var(--success);
+  border-left: 4px solid var(--success);
+  border-radius: var(--radius);
+  background: var(--success-bg);
+  padding: 16px 18px;
+}
+
+.advice-card .advice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.advice-card .advice-head h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.advice-card .advice-note {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.inline-add {
+  display: flex;
+  gap: 8px;
+}
+
+.inline-add input {
+  flex: 1;
+  min-width: 0;
+}
+
+.storage-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chip-remove {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 50%;
+}
+
+.chip-remove:hover {
+  color: var(--danger);
 }
 
 .file-field {
