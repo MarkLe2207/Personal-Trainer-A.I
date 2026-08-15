@@ -30,18 +30,6 @@ Most fitness apps fail because they are too rigid, leading to burnout and guilt 
 - [ ] Phase 2: Build the OCR/Vision mechanics for grocery-receipt scanning and pantry tracking.
 - [ ] Phase 3: Integrate Maps API for Gym routing and Smart Cardio loops.
 - [ ] Phase 4: Implement future monetization streams (Gym partnerships and referral programs).
-## Setup Instructions
 
-### Backend Setup
-```bash
-cd guiltfree-backend
-.\venv\Scripts\Activate
-uvicorn main:app --reload
-```
-
-### Frontend Setup
-```bash
-cd guiltfree-frontend
-npm run dev
-```
+---
 *Built to make fitness adapt to you, not the other way around.*

@@ -2,9 +2,11 @@
 
 import { useRef, useState } from "react";
 import { api, ApiError, ScannedReceiptResponse } from "../lib/api";
+import { useStorage } from "../lib/StorageContext";
 
 export default function ReceiptPanel() {
   const fileRef = useRef<HTMLInputElement>(null);
+  const { addItems } = useStorage();
   const [fileName, setFileName] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,6 +23,7 @@ export default function ReceiptPanel() {
     setResult(null);
     try {
       const res = await api.scanReceipt(file);
+      addItems(res.items);
       setResult(res);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : String(e));
@@ -64,7 +67,8 @@ export default function ReceiptPanel() {
       {result && (
         <>
           <div className="success">
-            Parsed {result.item_count} item(s) from the receipt.
+            Parsed {result.item_count} item(s) from the receipt and added them to
+            your Storage.
           </div>
           {result.items.length > 0 && (
             <div className="chips">
