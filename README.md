@@ -1,32 +1,70 @@
-# 🏋️‍♂️ Personal Trainer A.I.
+# Guilt-Free Personal Trainer & AI Pantry Companion — Frontend
 
-> An adaptive, guilt-free AI fitness and nutrition coach that dynamically adjusts to real human behavior—seamlessly adapting to laziness, missing ingredients, or impromptu cheat days without guilt-tripping the user.
+Next.js (App Router) single-page dashboard that talks to the FastAPI backend in
+`../guiltfree-backend`. It covers all four backend modules plus a health check.
 
-## 🌟 Overview
-Most fitness apps fail because they are too rigid, leading to burnout and guilt when users miss a day. **Personal Trainer A.I.** bridges the gap between strict goal-setting and real life. It acts as a supportive coach rather than a strict drill sergeant, recalibrating schedules, workouts, and meal plans dynamically in the background.
+## Backend API this frontend uses
 
-## ✨ Core Features
+| Endpoint | Method | Purpose |
+| --- | --- | --- |
+| `/` | GET | Health check |
+| `/api/checkerboard/recalibrate` | POST | Adaptive 7-day schedule recalibration |
+| `/api/coach/query` | POST | AI coach response (LangChain + Ollama) |
+| `/api/knowledge/search-recipes` | POST | Pantry-constrained recipe search (ChromaDB RAG) |
+| `/api/knowledge/search-exercises` | POST | Exercise search (ChromaDB RAG) |
+| `/api/vision/scan-receipt` | POST | Receipt OCR (multipart image upload) |
 
-### 📅 1. Smart Tracking & "The Checkerboard"
-*   **Adaptive Scheduling:** Users input their baseline routine into a visual "checkerboard." Missed a leg day? The AI dynamically reschedules and blends missed workouts into future routines instead of showing a failed red 'X'.
-*   **Guilt-Free Cheat Days:** If you skip a workout or eat fast food, the AI silently recalibrates your upcoming meals and workouts to offset the cheat day without making you feel overwhelmed.
+All API types and calls live in `lib/api.ts`. The backend base URL defaults to
+`http://localhost:8000` and can be overridden via the `NEXT_PUBLIC_API_URL`
+environment variable (see `.env.example`).
 
-### 🏃 2. Context-Aware Workout Coaching
-*   **At-Home Trainer:** Too unmotivated to leave the house? The AI generates quick 15-minute workouts utilizing standard household items (e.g., using a chair for tricep dips).
-*   **Gym Trainer & Location Routing:** Recommends nearby fitness facilities, displaying travel times, prices, and available equipment.
-*   **Smart Cardio Mapping:** Generates custom running routes based on your available time (e.g., a perfect 20-minute loop ending exactly at your front door).
+## Prerequisites (Windows)
 
-### 🥗 3. AI Meal Planning & Pantry Tracking
-*   **Receipt Scanning:** Snap a picture of your grocery receipt or fridge. The AI logs ingredients and available seasonings into a digital inventory.
-*   **Resourceful Recipes:** Recommends meals based *only* on what you currently own. It tracks ingredient usage and sends reminders to prevent food waste.
-*   **Fast-Food Compensation:** Calculates the caloric/nutritional impact of an unplanned fast-food meal and automatically lightens up the following days to keep you on track.
+- Node.js 18+ (LTS recommended) — from <https://nodejs.org>, or:
+  ```powershell
+  winget install OpenJS.NodeJS.LTS
+  ```
+- Python 3.10–3.12 (the backend pins older package versions that do **not**
+  have wheels for Python 3.14). Python 3.14 is currently installed on this
+  machine, so install 3.11/3.12 if `pip install` fails.
+- Ollama (only needed for the AI Coach tab): <https://ollama.com> or
+  `winget install Ollama.Ollama`, then `ollama pull llama3`.
+- Tesseract OCR binary (only needed for the Receipt Scanner tab):
+  `winget install UB-Mannheim.TesseractOCR`, then add `C:\Program Files\Tesseract-OCR` to PATH.
 
-### 🎙️ 4. Accessibility & Voice Interaction
-*   **Hands-Free Mode:** Integrated Speech-to-Text and Text-to-Speech. Ask the AI questions while cooking ("How much seasoning do I add?") and get verbal responses.
-*   **Multilingual Support:** Interacts and translates instructions into users' native languages, making fitness accessible to all communities.
+## Step 1 — Start the backend
 
-## 🚀 Roadmap (Upcoming)
-- [ ] Phase 1: Develop the core logic for the adaptive "Checkerboard" scheduling algorithm.
-- [ ] Phase 2: Build the OCR/Vision mechanics for grocery-receipt scanning and pantry tracking.
-- [ ] Phase 3: Integrate Maps API for Gym routing and Smart Cardio loops.
-- [ ] Phase 4: Implement future monetization streams (Gym partnerships and referral programs).
+```powershell
+cd C:\Users\damil\OneDrive\Documents\GymPT\guiltfree-backend
+python -m venv venv
+venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+> If PowerShell blocks `Activate.ps1`, run
+> `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first.
+> API docs will be at <http://localhost:8000/docs>.
+
+## Step 2 — Start the frontend
+
+Open a second terminal:
+
+```powershell
+cd C:\Users\damil\OneDrive\Documents\GymPT\guiltfree-frontend
+npm install
+npm run dev
+```
+
+Open <http://localhost:3000>. The green health badge in the header confirms the
+backend is reachable.
+
+## Optional
+
+- Change the backend URL (e.g. a remote server): copy `.env.example` to `.env`
+  and edit `NEXT_PUBLIC_API_URL`, then restart `npm run dev`.
+- The AI Coach returns HTTP 503 if Ollama isn't running; the Receipt Scanner
+  returns HTTP 500 if Tesseract isn't installed. The other tabs (Scheduler,
+  Recipes, Exercises) work without either, because ChromaDB auto-seeds demo
+  data on first boot.
