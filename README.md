@@ -31,5 +31,11 @@ Most fitness apps fail because they are too rigid, leading to burnout and guilt 
 - [ ] Phase 3: Integrate Maps API for Gym routing and Smart Cardio loops.
 - [ ] Phase 4: Implement future monetization streams (Gym partnerships and referral programs).
 
+- [ ] Install Ollama from ollama.com.
+
+  Pull the required model in their terminal (e.g., ollama pull llama3 or ollama pull mistral).
+
+  Ensure Ollama is running in the background before starting the FastAPI backend.
+
 ---
 *Built to make fitness adapt to you, not the other way around.*
